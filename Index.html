@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Music</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .player {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      padding: 30px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cover {
+      width: min(80vw, 330px);
+      height: min(80vw, 330px);
+      object-fit: cover;
+      border-radius: 18px;
+      margin: 0 auto 30px;
+      background: #222;
+    }
+
+    .song {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .artist {
+      color: #aaa;
+      margin-bottom: 25px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin-bottom: 25px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .play {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: white;
+      color: black;
+      font-size: 25px;
+    }
+
+    .time {
+      display: flex;
+      justify-content: space-between;
+      color: #888;
+      font-size: 12px;
+      margin-top: -18px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="player">
+
+    <img id="cover" class="cover"
+      src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80">
+
+    <div id="song" class="song">My First Song</div>
+    <div id="artist" class="artist">My Artist</div>
+
+    <input id="progress" type="range" min="0" value="0">
+
+    <div class="time">
+      <span id="current">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+
+    <div class="controls">
+      <button onclick="previousSong()">⏮</button>
+
+      <button id="playBtn" class="play" onclick="togglePlay()">▶</button>
+
+      <button onclick="nextSong()">⏭</button>
+    </div>
+
+  </div>
+
+  <audio id="audio"></audio>
+
+  <script>
+    const songs = [
+      {
+        name: "My First Song",
+        artist: "My Artist",
+        file: "song1.mp3",
+        cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        name: "My Second Song",
+        artist: "My Artist",
+        file: "song2.mp3",
+        cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        name: "My Third Song",
+        artist: "My Artist",
+        file: "song3.mp3",
+        cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80"
+      }
+    ];
+
+    let currentSong = 0;
+
+    const audio = document.getElementById("audio");
+    const playBtn = document.getElementById("playBtn");
+    const progress = document.getElementById("progress");
+    const songName = document.getElementById("song");
+    const artistName = document.getElementById("artist");
+    const cover = document.getElementById("cover");
+    const currentTime = document.getElementById("current");
+    const duration = document.getElementById("duration");
+
+    function loadSong(index) {
+      const s = songs[index];
+
+      songName.textContent = s.name;
+      artistName.textContent = s.artist;
+      cover.src = s.cover;
+      audio.src = s.file;
+      progress.value = 0;
+    }
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = "⏸";
+      } else {
+        audio.pause();
+        playBtn.textContent = "▶";
+      }
+    }
+
+    function nextSong() {
+      currentSong++;
+
+      if (currentSong >= songs.length) {
+        currentSong = 0;
+      }
+
+      loadSong(currentSong);
+      audio.play();
+      playBtn.textContent = "⏸";
+    }
+
+    function previousSong() {
+      currentSong--;
+
+      if (currentSong < 0) {
+        currentSong = songs.length - 1;
+      }
+
+      loadSong(currentSong);
+      audio.play();
+      playBtn.textContent = "⏸";
+    }
+
+    audio.addEventListener("timeupdate", () => {
+      if (audio.duration) {
+        progress.value = (audio.currentTime / audio.duration) * 100;
+      }
+
+      currentTime.textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      duration.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("ended", nextSong);
+
+    progress.addEventListener("input", () => {
+      if (audio.duration) {
+        audio.currentTime = (progress.value / 100) * audio.duration;
+      }
+    });
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "0:00";
+
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60);
+
+      return min + ":" + String(sec).padStart(2, "0");
+    }
+
+    loadSong(currentSong);
+  </script>
+
+</body>
+</html>
