@@ -89,6 +89,24 @@ button {
   color: black;
   font-size: 25px;
 }
+
+#songList {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.songItem {
+  padding: 15px;
+  margin: 8px 0;
+  background: #222;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.songItem:hover {
+  background: #333;
+}
 </style>
 </head>
 
@@ -102,9 +120,13 @@ button {
     src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
   >
 
-  <div id="song" class="song">Sochenge Tumhe Pyar</div>
+  <div id="song" class="song">
+    Sochenge Tumhe Pyar
+  </div>
 
-  <div id="artist" class="artist">Music Online</div>
+  <div id="artist" class="artist">
+    Music Online
+  </div>
 
   <input
     id="progress"
@@ -132,6 +154,8 @@ button {
     <button onclick="nextSong()">⏭</button>
 
   </div>
+
+  <div id="songList"></div>
 
 </div>
 
@@ -167,6 +191,7 @@ const artistName = document.getElementById("artist");
 const cover = document.getElementById("cover");
 const currentTime = document.getElementById("current");
 const duration = document.getElementById("duration");
+const songList = document.getElementById("songList");
 
 
 function loadSong(index) {
@@ -185,6 +210,7 @@ function loadSong(index) {
 
   currentTime.textContent = "0:00";
   duration.textContent = "0:00";
+
 }
 
 
@@ -319,6 +345,43 @@ function formatTime(seconds) {
 
 }
 
+
+function createSongList() {
+
+  songList.innerHTML = "";
+
+  songs.forEach((song, index) => {
+
+    const item = document.createElement("div");
+
+    item.className = "songItem";
+
+    item.textContent = "🎵 " + song.name;
+
+    item.onclick = () => {
+
+      currentSong = index;
+
+      loadSong(currentSong);
+
+      audio.play()
+        .then(() => {
+          playBtn.textContent = "⏸";
+        })
+        .catch(() => {
+          playBtn.textContent = "▶";
+        });
+
+    };
+
+    songList.appendChild(item);
+
+  });
+
+}
+
+
+createSongList();
 
 loadSong(currentSong);
 
