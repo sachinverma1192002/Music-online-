@@ -15,145 +15,203 @@
 
 body {
   min-height: 100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.78)),
-    url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1600&q=80")
-    center / cover fixed no-repeat;
-  color: white;
   font-family: Arial, sans-serif;
+  color: white;
+
+  background:
+    radial-gradient(circle at 20% 10%, #422080 0%, transparent 35%),
+    radial-gradient(circle at 90% 90%, #064d70 0%, transparent 35%),
+    linear-gradient(135deg, #08080d, #151020, #05080d);
+
+  background-attachment: fixed;
 }
 
-.player {
+.container {
   width: 100%;
-  max-width: 430px;
-  min-height: 100vh;
+  max-width: 500px;
   margin: auto;
-  padding: 25px 20px;
-  text-align: center;
+  padding: 20px;
 }
 
-h1 {
-  font-size: 28px;
-  margin-bottom: 20px;
+.header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.header h1 {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #aaa;
+  font-size: 14px;
 }
 
 .search {
   width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #444;
-  outline: none;
-  border-radius: 25px;
-  background: rgba(20,20,20,0.85);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 30px;
+
+  background: rgba(255,255,255,.08);
   color: white;
-  font-size: 16px;
-  margin-bottom: 25px;
+  outline: none;
+  font-size: 15px;
 }
 
 .search::placeholder {
   color: #aaa;
 }
 
+.player {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 25px;
+
+  padding: 22px;
+  text-align: center;
+
+  box-shadow: 0 20px 50px rgba(0,0,0,.4);
+}
+
 .cover {
-  width: min(78vw, 330px);
-  height: min(78vw, 330px);
+  width: min(72vw, 300px);
+  height: min(72vw, 300px);
+
   object-fit: cover;
-  border-radius: 18px;
-  margin: 0 auto 20px;
   display: block;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.6);
+
+  margin: 0 auto 20px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,.5);
 }
 
 .song {
-  font-size: 23px;
+  font-size: 22px;
   font-weight: bold;
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
 
 .artist {
-  color: #bbb;
-  margin-bottom: 22px;
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 #progress {
   width: 100%;
-  margin-bottom: 8px;
+  accent-color: white;
 }
 
 .time {
   display: flex;
   justify-content: space-between;
-  color: #aaa;
+
+  color: #999;
   font-size: 12px;
-  margin-bottom: 22px;
+
+  margin-top: 6px;
+  margin-bottom: 20px;
 }
 
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
-  margin-bottom: 25px;
+  gap: 28px;
 }
 
 button {
   border: none;
   background: transparent;
   color: white;
-  font-size: 28px;
+
+  font-size: 26px;
   cursor: pointer;
 }
 
 .play {
-  width: 65px;
-  height: 65px;
+  width: 62px;
+  height: 62px;
+
   border-radius: 50%;
+
   background: white;
   color: black;
-  font-size: 25px;
+
+  font-size: 24px;
 }
 
-.playlist-title {
-  text-align: left;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0 12px;
+.playlist {
+  margin-top: 20px;
 }
 
-.songList {
-  width: 100%;
-  padding-bottom: 25px;
+.playlist h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .songItem {
-  padding: 15px;
-  margin: 8px 0;
-  background: rgba(25,25,25,0.88);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px;
+  margin-bottom: 8px;
+
+  background: rgba(255,255,255,.07);
+
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 15px;
+
   cursor: pointer;
 }
 
 .songItem:hover {
-  background: rgba(55,55,55,0.9);
-}
-
-.songItem.active {
-  background: rgba(80,80,80,0.9);
+  background: rgba(255,255,255,.13);
 }
 
 .songNumber {
-  display: inline-block;
-  width: 28px;
+  width: 30px;
+  text-align: center;
   color: #aaa;
+}
+
+.songInfo {
+  flex: 1;
+  min-width: 0;
 }
 
 .songTitle {
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: bold;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.noResults {
-  color: #aaa;
+.songArtist {
+  font-size: 12px;
+  color: #888;
+  margin-top: 3px;
+}
+
+.active {
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.35);
+}
+
+.empty {
+  text-align: center;
+  color: #888;
   padding: 20px;
 }
 </style>
@@ -161,350 +219,24 @@ button {
 
 <body>
 
-<div class="player">
+<div class="container">
 
-  <h1>🎵 Music Online</h1>
+  <div class="header">
+    <h1>🎵 Music Online</h1>
+    <p>Your music player</p>
+  </div>
 
   <input
     id="search"
     class="search"
     type="text"
-    placeholder="Search song..."
-    autocomplete="off"
+    placeholder="🔎 Search song..."
   >
 
-  <img
-    id="cover"
-    class="cover"
-    src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
-  >
-
-  <div id="song" class="song">
-    Sochenge Tumhe Pyar
-  </div>
-
-  <div id="artist" class="artist">
-    Music Online
-  </div>
-
-  <input
-    id="progress"
-    type="range"
-    min="0"
-    max="100"
-    value="0"
-  >
-
-  <div class="time">
-    <span id="current">0:00</span>
-    <span id="duration">0:00</span>
-  </div>
-
-  <div class="controls">
-
-    <button onclick="previousSong()">⏮</button>
-
-    <button
-      id="playBtn"
-      class="play"
-      onclick="togglePlay()"
-    >▶</button>
-
-    <button onclick="nextSong()">⏭</button>
-
-  </div>
-
-  <div class="playlist-title">
-    Playlist
-  </div>
-
-  <div id="songList" class="songList"></div>
-
-</div>
-
-<audio id="audio"></audio>
-
-<script>
-
-const songs = [
-
-  {
-    name: "Sochenge Tumhe Pyar",
-    artist: "Music Online",
-    file: "Sochenge Tumhe Pyar.mp3",
-    cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "Mera Dil Bhi Kitna Pagal Hai",
-    artist: "Music Online",
-    file: "Mera Dil Bhi Kitna Pagal Hai.mp3",
-    cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "Dil Hai Ke Manta Nahin",
-    artist: "Music Online",
-    file: "Dil Hai Ke Manta Nahin.mp3",
-    cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "Saari Raat Teri Yaad",
-    artist: "Music Online",
-    file: "Saari Raat Teri Yaad.mp3",
-    cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "O Mere Dil Ke Chain",
-    artist: "Music Online",
-    file: "O Mere Dil Ke Chain.mp3",
-    cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "Kitni Bechain Hoke",
-    artist: "Music Online",
-    file: "Kitni Bechain Hoke.mp3",
-    cover: "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "Jo Bhi Kasmein",
-    artist: "Music Online",
-    file: "Jo Bhi Kasmein.mp3",
-    cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "Falak Dekhun Full Song With Lyrics by Sonu Nigam",
-    artist: "Music Online",
-    file: "Falak Dekhun Full Song With Lyrics by Sonu Nigam.mp3",
-    cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
-  },
-
-  {
-    name: "MUJHE RAAT DIN BAS",
-    artist: "Music Online",
-    file: "MUJHE RAAT DIN BAS.mp3",
-    cover: "https://images.unsplash.com/photo-1521337581100-8ca9a73a5f79?auto=format&fit=crop&w=800&q=80"
-  }
-
-];
-
-let currentSong = 0;
-
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
-const progress = document.getElementById("progress");
-const songName = document.getElementById("song");
-const artistName = document.getElementById("artist");
-const cover = document.getElementById("cover");
-const currentTime = document.getElementById("current");
-const duration = document.getElementById("duration");
-const songList = document.getElementById("songList");
-const search = document.getElementById("search");
-
-
-function loadSong(index) {
-
-  const song = songs[index];
-
-  songName.textContent = song.name;
-  artistName.textContent = song.artist;
-  cover.src = song.cover;
-
-  audio.src = encodeURI(song.file);
-  audio.load();
-
-  progress.value = 0;
-  currentTime.textContent = "0:00";
-  duration.textContent = "0:00";
-
-  createSongList(search.value);
-}
-
-
-function togglePlay() {
-
-  if (audio.paused) {
-
-    audio.play()
-      .then(() => {
-        playBtn.textContent = "⏸";
-      })
-      .catch(() => {
-        alert("Song load nahi ho pa raha.");
-      });
-
-  } else {
-
-    audio.pause();
-    playBtn.textContent = "▶";
-
-  }
-}
-
-
-function nextSong() {
-
-  currentSong++;
-
-  if (currentSong >= songs.length) {
-    currentSong = 0;
-  }
-
-  loadSong(currentSong);
-
-  audio.play()
-    .then(() => {
-      playBtn.textContent = "⏸";
-    })
-    .catch(() => {
-      playBtn.textContent = "▶";
-    });
-}
-
-
-function previousSong() {
-
-  currentSong--;
-
-  if (currentSong < 0) {
-    currentSong = songs.length - 1;
-  }
-
-  loadSong(currentSong);
-
-  audio.play()
-    .then(() => {
-      playBtn.textContent = "⏸";
-    })
-    .catch(() => {
-      playBtn.textContent = "▶";
-    });
-}
-
-
-audio.addEventListener("loadedmetadata", () => {
-
-  duration.textContent =
-    formatTime(audio.duration);
-
-});
-
-
-audio.addEventListener("timeupdate", () => {
-
-  if (audio.duration) {
-
-    progress.value =
-      (audio.currentTime / audio.duration) * 100;
-
-  }
-
-  currentTime.textContent =
-    formatTime(audio.currentTime);
-
-});
-
-
-audio.addEventListener("ended", () => {
-
-  nextSong();
-
-});
-
-
-audio.addEventListener("error", () => {
-
-  console.log("Audio load error:", audio.src);
-
-});
-
-
-progress.addEventListener("input", () => {
-
-  if (audio.duration) {
-
-    audio.currentTime =
-      (progress.value / 100) * audio.duration;
-
-  }
-
-});
-
-
-search.addEventListener("input", () => {
-
-  createSongList(search.value);
-
-});
-
-
-function createSongList(query = "") {
-
-  songList.innerHTML = "";
-
-  const text = query.toLowerCase().trim();
-
-  const filteredSongs = songs
-    .map((song, index) => ({ song, index }))
-    .filter(item =>
-      item.song.name.toLowerCase().includes(text)
-    );
-
-  if (filteredSongs.length === 0) {
-
-    songList.innerHTML =
-      '<div class="noResults">Song nahi mila</div>';
-
-    return;
-  }
-
-  filteredSongs.forEach(item => {
-
-    const div = document.createElement("div");
-
-    div.className = "songItem";
-
-    if (item.index === currentSong) {
-      div.classList.add("active");
-    }
-
-    div.innerHTML =
-      '<span class="songNumber">' +
-      (item.index + 1) +
-      '</span>' +
-      '<span class="songTitle">' +
-      item.song.name +
-      '</span>';
-
-    div.onclick = () => {
-
-      currentSong = item.index;
-
-      loadSong(currentSong);
-
-      audio.play()
-        .then(() => {
-          playBtn.textContent = "⏸";
-        })
-        .catch(() => {
-          playBtn.textContent = "▶";
-        });
-
-    };
-
-    songList.appendChild(div);
-
-  });
-
-}
-
-
-function formatTime(seconds) {
-
-  if (!seconds || isNaN(seconds)) {
-    return "0:
+  <div class="player">
+
+    <img
+      id="cover"
+      class="cover"
+      src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
+      alt="Album Cover"
